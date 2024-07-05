@@ -1,6 +1,7 @@
 # Rules of Inference Auto Generator/Grader
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![image](https://github.com/jorofino3/roi-gen/assets/97992795/1b49a671-e39a-494e-a93b-1945165380d7)
 
 Welcome to the Rules of Inference Problem Generator! This project, developed over the past two semesters (Spring 2023 and Fall 2023), is designed to automatically generate problems related to rules of inference for logic enthusiasts and students alike.
 
