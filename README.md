@@ -2,6 +2,10 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![image](https://github.com/jorofino3/roi-gen/assets/97992795/1b49a671-e39a-494e-a93b-1945165380d7)
+![image](https://github.com/jorofino3/roi-gen/assets/97992795/7cf21245-4872-48c1-af4e-d7b052c75c57)
+![image](https://github.com/jorofino3/roi-gen/assets/97992795/ec71990b-bb5b-4bb1-9a32-e89a127205cb)
+![image](https://github.com/jorofino3/roi-gen/assets/97992795/8fd4974b-34d9-470c-85cc-90c6d7708c15)
+![image](https://github.com/jorofino3/roi-gen/assets/97992795/197138c4-4f1b-4b90-9aff-a4262039f27f)
 
 Welcome to the Rules of Inference Problem Generator! This project, developed over the past two semesters (Spring 2023 and Fall 2023), is designed to automatically generate problems related to rules of inference for logic enthusiasts and students alike.
 
