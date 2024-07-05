@@ -1,0 +1,4 @@
+0. ~Q ^ R   |   Premise
+1. ~Q <-> ~P   |   Premise
+2. ~Q   |   Premise
+3. R   |   Decomposition 0

@@ -1,0 +1,9 @@
+# python build artifacts
+__pycache__/
+*.pyc
+
+# java build artifacts
+*.class
+
+# DS store
+.DS_Store

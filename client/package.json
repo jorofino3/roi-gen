@@ -1,0 +1,21 @@
+{
+  "name": "roi gen",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@nanostores/persistent": "^0.9.1",
+    "astro": "^1.9.2",
+    "framer-motion": "^10.16.4",
+    "nanostores": "^0.9.5"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^1.0.0"
+  }
+}

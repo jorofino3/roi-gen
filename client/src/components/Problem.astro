@@ -1,0 +1,160 @@
+---
+import Container from "./Container.astro"
+import {accEmail} from "../store.js"
+
+const response = await fetch('http://127.0.0.1:5000/?difficulty=beginner');
+const problemData = JSON.parse(await response.text());
+---
+
+<script>
+  import {accEmail} from "../store.js"
+
+  let pData;
+  document.addEventListener("DOMContentLoaded", function() {
+
+    function hideUpdateButtons() {
+      document.getElementById('correctAnswer').classList.add('hidden');
+      document.getElementById('incorrectAnswer').classList.add('hidden');      
+    }
+
+    function showUpdateButtons() {
+      document.getElementById('correctAnswer').classList.remove('hidden');
+      document.getElementById('incorrectAnswer').classList.remove('hidden');      
+    }
+
+    async function difficultyChange() {
+      const response = await fetch('http://127.0.0.1:5000/?difficulty=' + tgt.value.toLowerCase());
+      pData = JSON.parse(await response.text());
+
+      // Update the problem data/text
+      const premisesList = document.querySelector("#premisesList");
+      premisesList.innerHTML = pData.premises.map(premise => 
+        `<li class="flex items-center space-x-2">
+          <span class="font-semibold text-primary">&check;</span>
+          <span>${premise}</span>
+        </li>`
+      ).join('');
+
+      answerList.innerHTML = "";
+      const conclusionText = document.querySelector("#conclusionText");
+      conclusionText.textContent = pData.conclusion;
+
+      hideUpdateButtons();
+    } 
+
+    const tgt = document.querySelector("#diffSelect") as HTMLSelectElement;
+    tgt.addEventListener("change", async () => {
+      difficultyChange();
+    });
+
+    generateNew.addEventListener("click", async => {
+      difficultyChange();
+    });
+
+    const showAnswer = document.querySelector("#showAnswer");
+    const answerList = document.querySelector("#answerList");
+    showAnswer.addEventListener("click", () => {
+      if (pData) {
+        answerList.innerHTML = pData.solution.map(solution => 
+        `<li class="flex items-center space-x-2">
+          <span class="font-semibold text-primary">&check;</span>
+          <span>${solution}</span>
+        </li>`
+      ).join('');
+      }
+
+      showUpdateButtons();
+    });
+
+    recommendDifficulty.addEventListener("click", async ()=> {
+      const response = await fetch('http://127.0.0.1:5001/stats?email=' + accEmail.get());
+
+      const aData = JSON.parse(await response.text());
+      const attempted = aData.attempted;
+      const correct = aData.correct;
+      const ratio = correct/(attempted + 1);
+
+      if (ratio < .5) {
+        tgt.value = "beginner";
+      } else if (ratio < .75) {
+        tgt.value = "intermediate";
+      } else {
+        tgt.value = "advanced";
+      }
+      difficultyChange()
+    })
+
+    async function updateStats(correct) {
+
+      const difficulty = tgt.value
+      const response = await fetch('http://127.0.0.1:5001/stats?email=' + accEmail.get(), {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ correct, difficulty }),
+      });
+
+      const data = await response.json();
+      console.log(data.status);
+      hideUpdateButtons();
+    }
+
+    correctAnswer.addEventListener("click", async () => {
+      updateStats(true);
+    })
+
+    incorrectAnswer.addEventListener("click", async () => {
+      updateStats(false);
+    })
+
+  });
+</script>
+
+<div id="problem" class="flex flex-col items-center justify-center min-h-screen">
+  <Container>
+    <div class="w-full max-w-2xl mx-auto text-center mt-10 md:mt-20">
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
+        Practice Problem: Rules of Inference
+      </h2>
+      <div class="mt-4">
+        <label for="difficulty" class="font-bold dark:text-white">Difficulty</label>
+        <select id="diffSelect" name="difficulty" class="border border-gray-400 rounded-lg p-2 ml-2">
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+        <button id="recommendDifficulty" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Recommend Problem</button>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto mt-12">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 shadow-2xl">
+        <div class="p-8 space-y-6">
+          <h3 class="text-3xl font-semibold text-gray-700 dark:text-white">Problem Statement</h3>
+          <p class="text-lg text-gray-600 dark:text-gray-300">Use the rules of inference to prove the following argument:</p>
+          <div class="p-4 rounded-lg">
+            <p class="text-lg font-bold text-gray-800 dark:text-white">Premises:</p>
+            <ul id="premisesList" role="list" class="space-y-4 py-6 text-gray-600 dark:text-gray-300">
+              {problemData.premises.map(premise => (
+                <li class="flex items-center space-x-2">
+                  <span class="font-semibold text-primary">&check;</span>
+                  <span>{premise}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="text-lg font-bold text-gray-800 dark:text-white">Conclusion:</p>
+            <p id="conclusionText" class="text-lg text-gray-600 dark:text-gray-300">{problemData.conclusion}</p>
+            <p class="text-lg font-bold text-gray-800 dark:text-white">Answer:</p>
+            <ul id="answerList" role="list" class="space-y-4 py-6 text-gray-600 dark:text-gray-300">
+            </ul>
+          </div>
+          <button id="showAnswer" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Show Answer</button>
+          <button id="generateNew" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Generate New</button>
+          <button id="correctAnswer" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 hidden">Correct</button>
+          <button id="incorrectAnswer" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 hidden">Incorrect</button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>

@@ -1,0 +1,4 @@
+(~Q ^ R)
+(~Q <-> ~P)
+~Q
+conclusion: R

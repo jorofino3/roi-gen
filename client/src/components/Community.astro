@@ -1,0 +1,91 @@
+---
+import Container from "./Container.astro"
+
+
+---
+
+<div class="relative py-16">
+  <div aria-hidden="true" class="absolute inset-0 h-max w-full m-auto grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+    <div class="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"></div>
+    <div class="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
+  </div>
+  <Container>
+    <div class="relative">
+      <div class="flex items-center justify-center -space-x-2">
+        <img
+          loading="lazy"
+          width="400"
+          height="400"
+          src="./images/avatars/avatar.webp"
+          alt="member photo"
+          class="h-8 w-8 rounded-full object-cover"
+        />
+        <img
+          loading="lazy"
+          width="200"
+          height="200"
+          src="./images/avatars/avatar-2.webp"
+          alt="member photo"
+          class="h-12 w-12 rounded-full object-cover"
+        />
+        <img
+          loading="lazy"
+          width="200"
+          height="200"
+          src="./images/avatars/avatar-3.webp"
+          alt="member photo"
+          class="z-10 h-16 w-16 rounded-full object-cover"
+        />
+        <img
+          loading="lazy"
+          width="200"
+          height="200"
+          src="./images/avatars/avatar-4.webp"
+          alt="member photo"
+          class="relative h-12 w-12 rounded-full object-cover"
+        />
+        <img
+          loading="lazy"
+          width="200"
+          height="200"
+          src="./images/avatars/avatar-1.webp"
+          alt="member photo"
+          class="h-8 w-8 rounded-full object-cover"
+        />
+      </div>
+      <div class="mt-6 m-auto space-y-6 md:w-8/12 lg:w-7/12">
+        <h1 class="text-center text-4xl font-bold text-gray-800 dark:text-white md:text-5xl">Community Connection</h1>
+        <p class="text-center text-xl text-gray-600 dark:text-gray-300">
+          Learn from one another and get involved with our community. Join other students just like you!
+        </p>
+
+<div class="flex flex-wrap justify-center gap-6">
+  <a href="https://discord.gg/gyUqqT5jRh" target="_blank" rel="noopener noreferrer" class="group">
+    <div class="px-8 py-0 border border-gray-100 dark:border-gray-700 rounded-full mt-6 overflow-hidden flex items-center space-x-2 text-gray-800 dark:text-white cursor-pointer transition-transform transform group-hover:scale-105">
+      <img
+        loading="lazy"
+        width="200"
+        height="200"
+        src="./images/Discord-logo.png" 
+      />
+    </div>
+  </a>
+
+  <a href="https://groupme.com/join_group/98047498/HET7yo32" target="_blank" rel="noopener noreferrer" class="group">
+    <div class="px-8 py-0 border border-gray-100 dark:border-gray-700 rounded-full mt-6 overflow-hidden flex items-center space-x-2 text-gray-800 dark:text-white cursor-pointer transition-transform transform group-hover:scale-105">
+      <img
+        loading="lazy"
+        width="200"
+        height="200"
+        src="./images/groupme-logo.png" 
+        class="py-9 px-2.5"
+      />
+    </div>
+  </a>
+</div>
+
+
+      </div>
+    </div>
+  </Container>
+</div>
